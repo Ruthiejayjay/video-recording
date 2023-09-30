@@ -7,6 +7,7 @@ use App\Http\Requests\StoreVideoRequest;
 use App\Http\Requests\UpdateVideoRequest;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
+use getID3;
 
 class VideoController extends Controller
 {
@@ -40,21 +41,20 @@ class VideoController extends Controller
 
         $videoInByte = $video->getSize() / (10244 * 1024);
         $video_size = round($videoInByte, 2) . "mb";
-        $path = Storage::path("videos/" . $video_name);
-        $getID3 = new \getID3;
-        $video_file = $getID3->analyze($path);
-        $duration_seconds = '';
-        if($video_file)
-        {
-            $duration_seconds = $video_file['playtime_seconds'];
-        }
+        $path = Storage::path("videos/" . $video_name, ['s3', 'public']);
+        $fullpath = "https://hng-video-upload.s3.amazonaws.com/" . $path;
+        // $getID3 = new \getID3;
+        // $video_file = $getID3->analyze($fullpath);
+        // $duration_seconds = $video_file['playtime_seconds'];
+        
 
         $video = Video::create([
-            'video-path' => "https://hng-video-upload.s3.amazonaws.com/" . $path,
+            'video-path' => $fullpath,
             'name' => $video_name,
-            'length' => $duration_seconds,
+            'length' => '',
             'size' => $video_size
         ]);
+        
         return response()->json(
             [
                 'status_code' => Response::HTTP_CREATED,
