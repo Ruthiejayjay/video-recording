@@ -34,46 +34,25 @@ class VideoController extends Controller
     public function store(StoreVideoRequest $request)
     {
         $validation = $request->validated();
-
-        // $filename = '';
-        // if ($request->hasFile('video-path')) {
-        //     $video = $request->file('video-path');
-        //     $filename = $video->getClientOriginalName();
-        //     $video->move('uploads', $filename);
-        // }
-        // $video = Video::create([
-        //     'video-path' => $filename,
-        //     'name' => $filename
-        // ]);
-        // return response()->json(
-        //     [
-        //         'status_code' => Response::HTTP_CREATED,
-        //         'status' => 'success',
-        //         'message' => 'Video created successfully',
-        //         'data' => $video
-        //     ],
-        //     Response::HTTP_CREATED
-        // );
-
         $video = $request->file('video-path');
         $video_name = time() . "." . $video->getClientOriginalName();
-        $video->storeAs('videos', $video_name, 's3');
+        $video->storeAs('videos', $video_name, ['s3', 'public']);
 
         $videoInByte = $video->getSize() / (10244 * 1024);
         $video_size = round($videoInByte, 2) . "mb";
         $path = Storage::path("videos/" . $video_name);
         $getID3 = new \getID3;
-        // $video_file = $getID3->analyze($path);
-        // $duration_seconds = '';
-        // if($video_file)
-        // {
-        //     $duration_seconds = $video_file['playtime_seconds'];
-        // }
+        $video_file = $getID3->analyze($path);
+        $duration_seconds = '';
+        if($video_file)
+        {
+            $duration_seconds = $video_file['playtime_seconds'];
+        }
 
         $video = Video::create([
             'video-path' => "https://hng-video-upload.s3.amazonaws.com/" . $path,
             'name' => $video_name,
-            'length' => '',
+            'length' => $duration_seconds,
             'size' => $video_size
         ]);
         return response()->json(
