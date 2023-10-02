@@ -42,15 +42,15 @@ class VideoController extends Controller
         $fullpath = "https://hng-video-upload.s3.amazonaws.com/" . $path;
 
         $url = fopen($fullpath, 'r');
-        $response = Http::withOptions([
-            'curl' => [CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1], // Set HTTP/1.1
-        ])->withHeaders(['Authorization' => 'Bearer FE95V1MH8SRLGW16EQB9S2IFPLKFIQTC'])
-            ->attach('file', $url) // Replace 'your-video-file.mp4' with the actual filename
-            ->post('https://transcribe.whisperapi.com', [
-                'fileType' => 'mp4',
-                'diarization' => 'false',
-                'task' => 'transcribe',
-            ]);
+        // $response = Http::withOptions([
+        //     'curl' => [CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1], // Set HTTP/1.1
+        // ])->withHeaders(['Authorization' => 'Bearer FE95V1MH8SRLGW16EQB9S2IFPLKFIQTC'])
+        //     ->attach('file', $url) // Replace 'your-video-file.mp4' with the actual filename
+        //     ->post('https://transcribe.whisperapi.com', [
+        //         'fileType' => 'mp4',
+        //         'diarization' => 'false',
+        //         'task' => 'transcribe',
+        //     ]);
 
         $localVideoPath = storage_path("app/vids/" . $localVideo_name);
         // dd($localVideoPath);
