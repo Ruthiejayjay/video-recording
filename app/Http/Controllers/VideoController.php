@@ -64,7 +64,7 @@ class VideoController extends Controller
             'name' => $video_name,
             'length' => $duration_seconds,
             'size' => $video_size,
-            'transcript' => 'text',
+            // 'transcript' => 'text',
             // 'uploaded_at' => $time,
         ]);
 
