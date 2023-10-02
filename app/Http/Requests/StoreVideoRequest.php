@@ -22,7 +22,7 @@ class StoreVideoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'video-path' => 'required',
+            'video-path' => 'required|file|mimetypes:video/*|max:204000',
         ];
     }
 }

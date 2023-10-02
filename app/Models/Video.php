@@ -10,7 +10,7 @@ class Video extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','video-path', 'size', 'length', 'transcript'];
+    protected $fillable = ['name','video-path', 'size', 'length', 'transcript', 'uploaded_at'];
 
   
 }
