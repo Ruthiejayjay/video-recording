@@ -57,6 +57,7 @@ class VideoController extends Controller
         $getID3 = new getID3();
         $video_file = $getID3->analyze($localVideoPath);
         $duration_seconds = isset($video_file['playtime_string']) ? $video_file['playtime_string'] : '00:00';
+        $time = Carbon::now();
 
         $video = Video::create([
             'video-path' => $fullpath,
@@ -64,7 +65,7 @@ class VideoController extends Controller
             'length' => $duration_seconds,
             'size' => $video_size,
             // 'transcript' => 'text',
-            // 'uploaded_at' => Carbon::now()->toIso8601ZuluString(),
+            'uploaded_at' => $time->toIso8601ZuluString(),
         ]);
 
         $localVideoToDelete = 'app/vids/' . $localVideo_name;
