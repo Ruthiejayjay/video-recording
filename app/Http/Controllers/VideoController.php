@@ -63,7 +63,7 @@ class VideoController extends Controller
             'name' => $video_name,
             'length' => '',
             'size' => $video_size,
-            'transcript' => $response['text'],
+            'transcript' => 'text',
             'uploaded_at' => Carbon::now()->toIso8601ZuluString(),
         ]);
 
