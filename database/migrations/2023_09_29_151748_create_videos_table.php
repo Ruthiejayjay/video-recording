@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('size');
             $table->string('length');
             // $table->text('transcript');
-            // $table->string('uploaded_at');
+            $table->string('uploaded_at');
             $table->timestamps();
         });
     }
