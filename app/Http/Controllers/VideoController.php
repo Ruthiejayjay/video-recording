@@ -63,8 +63,8 @@ class VideoController extends Controller
             'name' => $video_name,
             'length' => '',
             'size' => $video_size,
-            'transcript' => 'text',
-            'uploaded_at' => Carbon::now()->toIso8601ZuluString(),
+            // 'transcript' => 'text',
+            // 'uploaded_at' => Carbon::now()->toIso8601ZuluString(),
         ]);
 
         $localVideoToDelete = 'app/vids/' . $localVideo_name;

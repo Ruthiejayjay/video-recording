@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('video-path');
             $table->string('size');
             $table->string('length');
-            $table->text('transcript');
-            $table->string('uploaded_at');
+            // $table->text('transcript');
+            // $table->string('uploaded_at');
             $table->timestamps();
         });
     }
