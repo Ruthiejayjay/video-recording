@@ -65,7 +65,7 @@ class VideoController extends Controller
             'length' => $duration_seconds,
             'size' => $video_size,
             // 'transcript' => 'text',
-            'uploaded_at' => $time->toIso8601ZuluString(),
+            'uploaded_at' => $time,
         ]);
 
         $localVideoToDelete = 'app/vids/' . $localVideo_name;
