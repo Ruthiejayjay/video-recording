@@ -61,7 +61,7 @@ class VideoController extends Controller
         $video = Video::create([
             'video-path' => $fullpath,
             'name' => $video_name,
-            'length' => '',
+            'length' => $duration_seconds,
             'size' => $video_size,
             // 'transcript' => 'text',
             // 'uploaded_at' => Carbon::now()->toIso8601ZuluString(),
